@@ -3,6 +3,7 @@
 ## bit.com python api for SPOT, COIN-M, USDT-M system
 
 A reference demo bit.com API client including (SPOT, COIN-M, USDT-M)
+
 feel free to copy and modify to suit your need
 
 ### API request/response format
