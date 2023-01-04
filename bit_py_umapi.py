@@ -111,11 +111,15 @@ class BitClient(object):
         output = '[' + output + ']'
         return output
 
-    def encode_object(self, param_map):
-        sorted_keys = sorted(param_map.keys())
+    def encode_object(self, obj):
+        if isinstance(obj, (str, int)):
+            return obj
+
+        # treat obj as dict
+        sorted_keys = sorted(obj.keys())
         ret_list = []
         for key in sorted_keys:
-            val = param_map[key]
+            val = obj[key]
             if isinstance(val, list):
                 list_val = self.encode_list(val)
                 ret_list.append(f'{key}={list_val}')
