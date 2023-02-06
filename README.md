@@ -36,9 +36,6 @@ if __name__ == '__main__':
         print(um_account)
     elif mode == 'classic':
         classic_account_btc = client.query_accounts({'currency':'BTC'})
-        classic_account_btc = client.query_accounts({'currency':'BTC'})
-        classic_account_btc = client.query_accounts({'currency':'BTC'})
-
         classic_account_eth = client.query_accounts({'currency':'ETH'})
         classic_account_bch = client.query_accounts({'currency':'BCH'})
         classic_account_spot = client.spot_query_accounts({})
