@@ -144,6 +144,12 @@ class BitClient(object):
                        digestmod=hashlib.sha256).hexdigest()
         return sig
 
+    def get_str(self, x):
+        if isinstance(x, bool):
+            return str(x).lower()
+        else:
+            return str(x)
+                
     def call_private_api(self, path, method="GET", param_map=None):
         if param_map is None:
             param_map = {}
@@ -159,7 +165,7 @@ class BitClient(object):
 
         js = None
         if method == HttpMethod.GET:
-            query_string = '&'.join([f'{k}={v}' for k, v in param_map.items()])
+            query_string = '&'.join([f'{k}={self.get_str(v)}' for k, v in param_map.items()])
             url += '?' + query_string
         else:
             js = json.loads(json.dumps(param_map))
