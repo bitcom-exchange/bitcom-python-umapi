@@ -86,6 +86,9 @@ V1_LINEAR_EST_MARGINS = '/linear/v1/margins'
 V1_LINEAR_CLOSE_POS = '/linear/v1/close_positions'
 V1_LINEAR_BATCH_ORDERS = '/linear/v1/batchorders'
 V1_LINEAR_AMEND_BATCH_ORDERS = '/linear/v1/amend_batchorders'
+V1_LINEAR_BLOCK_TRADES = '/linear/v1/blocktrades'
+V1_LINEAR_USER_INFO = '/linear/v1/user/info'
+V1_LINEAR_PLATFORM_BLOCK_TRADES = '/linear/v1/platform_blocktrades'
 
 class BitClient(object):
 
@@ -358,6 +361,18 @@ class BitClient(object):
     def linear_estimated_margins(self, req):
         return self.call_private_api(V1_LINEAR_EST_MARGINS, HttpMethod.GET, req)
 
+    # usdx blocktrades
+    def linear_new_blocktrades(self, order_req):
+        self.call_private_api(V1_LINEAR_BLOCK_TRADES, 'POST', order_req)
+
+    def linear_query_blocktrades(self, req):
+        json_str = self.call_private_api(V1_LINEAR_BLOCK_TRADES, HttpMethod.GET, req)
+
+    def linear_query_userinfo(self, req={}):
+        self.call_private_api(V1_LINEAR_USER_INFO, HttpMethod.GET, req)
+
+    def linear_query_platform_blocktrades(self, req):
+        json_str = self.call_private_api(V1_LINEAR_PLATFORM_BLOCK_TRADES, HttpMethod.GET, req)
 
 if __name__ == '__main__':
     # api_host = "https://api.bit.com" # production
@@ -370,6 +385,7 @@ if __name__ == '__main__':
     mode_resp = client.um_query_account_mode()
     mode = mode_resp['data']['account_mode']
     
+    # get account information
     if mode == 'um':
         um_account = client.um_query_accounts()
         print(um_account)
@@ -383,6 +399,75 @@ if __name__ == '__main__':
         print('ETH account = ' + str(classic_account_eth))
         print('BCH account = ' + str(classic_account_bch))
         print('Spot account = ' + str(classic_account_spot))
-
     else:
         print('account in transient state: ' + mode)
+
+    # query USD-M(linear) positions
+    client.linear_query_positions({
+        'currency':'USD'
+    })    
+
+    # place USD-M(linear) limit order
+    client.linear_place_order({
+        'instrument_id': 'ETH-USD-PERPETUAL',
+        'side':'buy',
+        'qty':'0.05',
+        'price': '1500',
+        'order_type':'limit',
+        'post_only': True
+    })
+
+    # place trigger limit order
+    client.linear_place_order({
+        'instrument_id': 'BTC-USD-PERPETUAL',
+        'side':'buy',
+        'qty':'0.01',
+        'order_type':'trigger-market',
+        'time_in_force': 'gtc',
+        'stop_price': '25800',
+        'trigger_type': 'last-price'
+    })    
+
+    # new batch orders
+    client.linear_new_batch({
+        'currency': 'USD', 
+        'orders_data': [
+            {'instrument_id': 'XRP-USD-PERPETUAL', 'side': 'buy', 'qty': '200', 'price': '0.371', 'order_type': 'limit', 'post_only': True}, 
+            {'instrument_id': 'XRP-USD-PERPETUAL', 'side': 'buy', 'qty': '300', 'price': '0.36', 'order_type': 'limit', 'post_only': True}, 
+            {'instrument_id': 'XRP-USD-PERPETUAL', 'side': 'buy', 'qty': '400', 'price': '0.37', 'order_type': 'limit', 'post_only': True}
+        ]
+    })
+
+
+    # cancel order
+    client.linear_cancel_order({
+        'currency':'USD',
+        'instrument_id': 'BTC-USD-PERPETUAL',
+        'order_id': '14232321'
+    })    
+
+
+    # amend order
+    client.linear_amend_order({
+        'currency':'USD',
+        'instrument_id': 'XRP-USD-PERPETUAL',
+        'order_id': '58317173',
+        'price': '0.3'
+    })
+
+    # batch amend orders
+    client.linear_amend_batch({
+        'currency':'USD',
+        'orders_data': [
+            {
+                'instrument_id': 'XRP-USD-PERPETUAL',
+                'order_id': '58317172',
+                'price': '0.32'
+            },
+            {
+                'instrument_id': 'XRP-USD-PERPETUAL',
+                'order_id': '58317173',
+                'price': '0.33'
+            }            
+        ]
+    }) 
