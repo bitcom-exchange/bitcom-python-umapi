@@ -363,16 +363,17 @@ class BitClient(object):
 
     # usdx blocktrades
     def linear_new_blocktrades(self, order_req):
-        self.call_private_api(V1_LINEAR_BLOCK_TRADES, 'POST', order_req)
+        return self.call_private_api(V1_LINEAR_BLOCK_TRADES, HttpMethod.POST, order_req)
 
     def linear_query_blocktrades(self, req):
-        json_str = self.call_private_api(V1_LINEAR_BLOCK_TRADES, HttpMethod.GET, req)
+        return self.call_private_api(V1_LINEAR_BLOCK_TRADES, HttpMethod.GET, req)
 
     def linear_query_userinfo(self, req={}):
-        self.call_private_api(V1_LINEAR_USER_INFO, HttpMethod.GET, req)
+        return self.call_private_api(V1_LINEAR_USER_INFO, HttpMethod.GET, req)
 
     def linear_query_platform_blocktrades(self, req):
-        json_str = self.call_private_api(V1_LINEAR_PLATFORM_BLOCK_TRADES, HttpMethod.GET, req)
+        return self.call_private_api(V1_LINEAR_PLATFORM_BLOCK_TRADES, HttpMethod.GET, req)
+
 
 if __name__ == '__main__':
     # api_host = "https://api.bit.com" # production
