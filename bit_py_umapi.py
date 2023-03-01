@@ -68,6 +68,8 @@ V1_SPOT_MMP_STATE = '/spot/v1/mmp_state'
 V1_SPOT_MMP_UPDATE_CONFIG = '/spot/v1/update_mmp_config'
 V1_SPOT_RESET_MMP = '/spot/v1/reset_mmp'
 V1_SPOT_ACCOUNT_CONFIGS_COD = '/spot/v1/account_configs/cod'
+V1_SPOT_ACCOUNT_CONFIGS = "/spot/v1/account_configs"
+
 
 # UM
 V1_UM_ACCOUNT_MODE = "/um/v1/account_mode"
@@ -266,6 +268,9 @@ class BitClient(object):
     ######################
     # SPOT endpoints
     ######################
+    def spot_account_configs(self, req):
+        return self.call_private_api(V1_SPOT_ACCOUNT_CONFIGS, HttpMethod.GET, req)            
+
     def spot_query_accounts(self, params={}):
         return self.call_private_api(V1_SPOT_ACCOUNTS, HttpMethod.GET, params)
 
