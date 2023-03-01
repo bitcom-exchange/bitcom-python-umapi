@@ -89,6 +89,7 @@ V1_LINEAR_AMEND_BATCH_ORDERS = '/linear/v1/amend_batchorders'
 V1_LINEAR_BLOCK_TRADES = '/linear/v1/blocktrades'
 V1_LINEAR_USER_INFO = '/linear/v1/user/info'
 V1_LINEAR_PLATFORM_BLOCK_TRADES = '/linear/v1/platform_blocktrades'
+V1_LINEAR_ACCOUNT_CONFIGS = "/linear/v1/account_configs"
 
 class BitClient(object):
 
@@ -326,8 +327,11 @@ class BitClient(object):
         return self.call_private_api(V1_UM_INTEREST_RECORDS, HttpMethod.GET, param)
 
     ######################
-    # USDT-M endpoints
+    # USD-M endpoints
     ######################
+    def linear_account_configs(self, req):
+        return self.call_private_api(V1_LINEAR_ACCOUNT_CONFIGS, HttpMethod.GET, req)            
+
     def linear_query_positions(self, params):
         return self.call_private_api(V1_LINEAR_POSITIONS, HttpMethod.GET, params)
 
