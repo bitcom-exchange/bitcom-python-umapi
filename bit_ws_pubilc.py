@@ -1,12 +1,16 @@
-# python3 -m pip install websocket-client
 import websocket, _thread, time, json
 
 ws_host = "wss://ws.bit.com"
+# ws_host = "wss://betaws.bitexch.dev"
+# ws_host = "wss://alphaws.bitexch.dev"
+# ws_host = "wss://spot-ws.bit.com"
 
 subscribe_req = {
     "type": "subscribe",
-    "channels": ["order_book.10.10"],
-    "instruments": ["BTC-USD-PERPETUAL"],
+    # "channels": ["order_book.10.10"],
+    "channels": ["ticker"],
+    # "instruments": ["BTC-USD-PERPETUAL", "ETH-USD-PERPETUAL"],
+    "instruments": ['BTC-USD-17MAR23-31000-P', 'BTC-USD-17MAR23-32000-C', 'BTC-USD-17MAR23-32000-P'],
     "interval": "100ms",
 }
 
