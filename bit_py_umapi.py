@@ -24,34 +24,6 @@ class HttpMethod:
     HEAD = 'HEAD'
 
 
-# COIN-M
-V1_ACCOUNTS = '/v1/accounts'
-V1_POSITIONS = '/v1/positions'
-V1_ORDERS = '/v1/orders'
-V1_CANCEL_ORDERS = '/v1/cancel_orders'
-V1_OPENORDERS = '/v1/open_orders'
-V1_USER_TRADES = '/v1/user/trades'
-V1_STOP_ORDERS = '/v1/stop_orders'
-V1_AMEND_ORDERS = '/v1/amend_orders'
-V1_TRANSACTION_LOGS = '/v1/transactions'
-V1_DELIVERIES = '/v1/user/deliveries'
-V1_SETTLEMENTS = '/v1/user/settlements'
-V1_DELIVERY_INFO = '/v1/delivery_info'
-V1_EST_MARGINS = '/v1/margins'
-V1_CLOSE_POS = '/v1/close_positions'
-V1_WS_AUTH = '/v1/ws/auth'
-V1_BLOCK_TRADES = '/v1/blocktrades'
-V1_PLATFORM_BLOCK_TRADES = '/v1/platform_blocktrades'
-V1_BATCH_ORDERS = '/v1/batchorders'
-V1_AMEND_BATCH_ORDERS = '/v1/amend_batchorders'
-V1_MMP_STATE = "/v1/mmp_state"
-V1_MMP_UPDATE_CONFIG = "/v1/update_mmp_config"
-V1_RESET_MMP = "/v1/reset_mmp"
-V1_USER_INFO = "/v1/user/info"
-V1_ORDERS_MARGIN = "/v1/orders/margin"
-V1_ACCOUNT_CONFIGS_COD = "/v1/account_configs/cod"
-
-
 # SPOT
 V1_SPOT_INSTRUMENTS = '/spot/v1/instruments'
 V1_SPOT_ACCOUNTS = '/spot/v1/accounts'
@@ -187,83 +159,6 @@ class BitClient(object):
                 f'Server returns non-json data: {res.text}, excpeiton = {str(ex)}')
             raise ex
 
-    ######################
-    # COIN-M endpoints
-    ######################
-    def query_accounts(self, params={}):
-        return self.call_private_api(V1_ACCOUNTS, HttpMethod.GET, params)
-
-    def query_positions(self, params):
-        return self.call_private_api(V1_POSITIONS, HttpMethod.GET, params)
-
-    def query_transactions(self, params):
-        return self.call_private_api(V1_TRANSACTION_LOGS, HttpMethod.GET, params)
-
-    def query_deliveries(self, params):
-        return self.call_private_api(V1_DELIVERIES, HttpMethod.GET, params)
-
-    def query_settlements(self, params):
-        return self.call_private_api(V1_SETTLEMENTS, HttpMethod.GET, params)
-
-    def query_orders(self, params):
-        return self.call_private_api(V1_ORDERS, HttpMethod.GET, params)
-
-    def query_open_orders(self, params):
-        return self.call_private_api(V1_OPENORDERS, HttpMethod.GET, params)
-
-    def get_est_margin(self, params):
-        return self.call_private_api(V1_EST_MARGINS, HttpMethod.GET, params)
-
-    def query_stop_orders(self, params):
-        return self.call_private_api(V1_STOP_ORDERS, HttpMethod.GET, params)
-
-    def query_trades(self, params):
-        return self.call_private_api(V1_USER_TRADES, HttpMethod.GET, params)
-
-    def place_order(self, order_req):
-        return self.call_private_api(V1_ORDERS, HttpMethod.POST, order_req)
-
-    def cancel_order(self, cancel_req):
-        return self.call_private_api(V1_CANCEL_ORDERS, HttpMethod.POST, cancel_req)
-
-    def amend_order(self, req):
-        return self.call_private_api(V1_AMEND_ORDERS, HttpMethod.POST, req)
-
-    def close_position(self, close_req):
-        return self.call_private_api(V1_CLOSE_POS, HttpMethod.POST, close_req)
-
-    def ws_auth(self):
-        return self.call_private_api(V1_WS_AUTH, HttpMethod.GET)
-
-    def new_blocktrades(self, order_req):
-        return self.call_private_api(V1_BLOCK_TRADES, HttpMethod.POST, order_req)
-
-    def query_blocktrades(self, req):
-        return self.call_private_api(V1_BLOCK_TRADES, HttpMethod.GET, req)
-
-    def query_userinfo(self):
-        return self.call_private_api(V1_USER_INFO, HttpMethod.GET, {})
-
-    def query_platform_blocktrades(self, req):
-        return self.call_private_api(V1_PLATFORM_BLOCK_TRADES, HttpMethod.GET, req)
-
-    def new_batch_orders(self, req):
-        return self.call_private_api(V1_BATCH_ORDERS, HttpMethod.POST, req)
-
-    def amend_batch_orders(self, req):
-        return self.call_private_api(V1_AMEND_BATCH_ORDERS, HttpMethod.POST, req)
-
-    def query_mmp_state(self, req):
-        return self.call_private_api(V1_MMP_STATE, HttpMethod.GET, req)
-
-    def update_mmp_config(self, req):
-        return self.call_private_api(V1_MMP_UPDATE_CONFIG, HttpMethod.POST, req)
-
-    def reset_mmp(self, req):
-        return self.call_private_api(V1_RESET_MMP, HttpMethod.POST, req)
-
-    def enable_cod(self, req):
-        return self.call_private_api(V1_ACCOUNT_CONFIGS_COD, HttpMethod.POST, req)
 
     ######################
     # SPOT endpoints

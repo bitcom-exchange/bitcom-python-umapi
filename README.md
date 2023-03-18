@@ -1,8 +1,8 @@
 # bitcom-python-umapi
 
-## bit.com python api for SPOT, COIN-M, USD-M system
+## bit.com python api for SPOT, USD-M system
 
-A reference demo bit.com API client including (SPOT, COIN-M, USD-M)
+A reference demo bit.com API client including (SPOT, USD-M)
 
 feel free to copy and modify to suit your need
 
