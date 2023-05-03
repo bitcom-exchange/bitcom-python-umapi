@@ -64,6 +64,7 @@ V1_LINEAR_BLOCK_TRADES = '/linear/v1/blocktrades'
 V1_LINEAR_USER_INFO = '/linear/v1/user/info'
 V1_LINEAR_PLATFORM_BLOCK_TRADES = '/linear/v1/platform_blocktrades'
 V1_LINEAR_ACCOUNT_CONFIGS = "/linear/v1/account_configs"
+V1_LINEAR_LEVERAGE_RATIO = "/linear/v1/leverage_ratio"
 
 class BitClient(object):
 
@@ -264,6 +265,12 @@ class BitClient(object):
 
     def linear_estimated_margins(self, req):
         return self.call_private_api(V1_LINEAR_EST_MARGINS, HttpMethod.GET, req)
+
+    def linear_query_leverage_ratio(self, params):
+        return self.call_private_api(V1_LINEAR_LEVERAGE_RATIO, HttpMethod.GET, params)
+
+    def linear_update_leverage_ratio(self, params):
+        return self.call_private_api(V1_LINEAR_LEVERAGE_RATIO, HttpMethod.POST, params)
 
     # usdx blocktrades
     def linear_new_blocktrades(self, order_req):
