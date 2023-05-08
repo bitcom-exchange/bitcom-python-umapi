@@ -15,8 +15,7 @@ sk = ""
 
 def get_ws_token():
     restClient = BitClient(ak, sk, api_host)
-    ret = restClient.ws_auth()
-    obj = json.loads(ret)
+    obj = restClient.ws_auth()
     return obj["data"]["token"]
 
 

@@ -24,6 +24,8 @@ class HttpMethod:
     HEAD = 'HEAD'
 
 
+V1_WS_AUTH = '/v1/ws/auth'
+
 # SPOT
 V1_SPOT_INSTRUMENTS = '/spot/v1/instruments'
 V1_SPOT_ACCOUNTS = '/spot/v1/accounts'
@@ -161,6 +163,9 @@ class BitClient(object):
             raise ex
 
 
+    def ws_auth(self):
+        return self.call_private_api(V1_WS_AUTH, HttpMethod.GET)
+    
     ######################
     # SPOT endpoints
     ######################
