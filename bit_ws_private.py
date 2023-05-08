@@ -1,3 +1,5 @@
+# pip3 install websocket_client
+
 import websocket, _thread, time, json
 from bit_py_umapi import BitClient
 
@@ -7,8 +9,8 @@ ws_host = "wss://betaws.bitexch.dev"
 # ws_host = "wss://spot-ws.bit.com"
 
 api_host = "https://betaapi.bitexch.dev"
-ak = ""
-sk = ""
+ak = "ak-7656c65e-6643-4668-807f-32d84a60eda5"
+sk = "jvw6vasDsYMEf0v7MtkBZELo6O3E0XRLgEEYZmJjr2X6ePS5HKYLm7Pyk5cSSWrb"
 
 ###########################################################
 
@@ -60,8 +62,8 @@ def ws_message(ws, message):
 def ws_open(ws):
     print("getting ws_token")
     ws_token = get_ws_token()
-    # req = make_umaccount_req(ws_token)
-    req = make_user_order_req(ws_token)
+    req = make_umaccount_req(ws_token)
+    # req = make_user_order_req(ws_token)
     print("ws_open: send req " + str(req))
     ws.send(json.dumps(req))
 

@@ -1,3 +1,5 @@
+# pip3 install websocket_client
+
 import websocket, _thread, time, json
 
 ws_host = "wss://ws.bit.com"
