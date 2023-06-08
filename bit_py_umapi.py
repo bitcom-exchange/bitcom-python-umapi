@@ -43,7 +43,7 @@ V1_SPOT_MMP_UPDATE_CONFIG = '/spot/v1/update_mmp_config'
 V1_SPOT_RESET_MMP = '/spot/v1/reset_mmp'
 V1_SPOT_ACCOUNT_CONFIGS_COD = '/spot/v1/account_configs/cod'
 V1_SPOT_ACCOUNT_CONFIGS = "/spot/v1/account_configs"
-
+V1_SPOT_AGG_TRADES = "/spot/v1/aggregated/trades"
 
 # UM
 V1_UM_ACCOUNT_MODE = "/um/v1/account_mode"
@@ -67,6 +67,8 @@ V1_LINEAR_USER_INFO = '/linear/v1/user/info'
 V1_LINEAR_PLATFORM_BLOCK_TRADES = '/linear/v1/platform_blocktrades'
 V1_LINEAR_ACCOUNT_CONFIGS = "/linear/v1/account_configs"
 V1_LINEAR_LEVERAGE_RATIO = "/linear/v1/leverage_ratio"
+V1_LINEAR_AGG_POSITIONS = "/linear/v1/aggregated/positions"
+V1_LINEAR_AGG_TRADES = "/linear/v1/aggregated/trades"
 
 class BitClient(object):
 
@@ -217,6 +219,9 @@ class BitClient(object):
     def spot_enable_cod(self, req):
         return self.call_private_api(V1_SPOT_ACCOUNT_CONFIGS_COD, HttpMethod.POST, req)
 
+    def spot_query_agg_trades(self, params):
+        self.call_private_api(V1_SPOT_AGG_TRADES, HttpMethod.GET, params)
+
     ######################
     # UM endpoints
     ######################
@@ -289,6 +294,13 @@ class BitClient(object):
 
     def linear_query_platform_blocktrades(self, req):
         return self.call_private_api(V1_LINEAR_PLATFORM_BLOCK_TRADES, HttpMethod.GET, req)
+
+    # agg
+    def linear_query_agg_positions(self, params):
+        self.call_private_api(V1_LINEAR_AGG_POSITIONS, HttpMethod.GET, params)
+
+    def linear_query_agg_trades(self, params):
+        self.call_private_api(V1_LINEAR_AGG_TRADES, HttpMethod.GET, params)
 
 
 if __name__ == '__main__':
