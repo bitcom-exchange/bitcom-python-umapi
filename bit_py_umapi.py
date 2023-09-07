@@ -72,10 +72,11 @@ V1_LINEAR_AGG_TRADES = "/linear/v1/aggregated/trades"
 
 class BitClient(object):
 
-    def __init__(self, ak, sk, base_url):
+    def __init__(self, ak, sk, base_url, verbose=False):
         self.access_key = ak
         self.secret_key = sk
         self.base_url = base_url
+        self.verbose_log = verbose
 
     #############################
     # call private API
@@ -157,6 +158,23 @@ class BitClient(object):
         header = {'X-Bit-Access-Key': self.access_key, 'language-type': '1'}
 
         res = requests.request(method, url, headers=header, json=js)
+        
+        if self.verbose_log:
+            print('')
+            print('>>>>> Request:')
+            print('--------------')
+            if method == 'GET':
+                print(f'curl -H "X-Bit-Access-Key: {self.access_key}" "{url}" ')
+            else:
+                print(
+                    f"""curl -X "{method}" "{url}" -H "Content-Type: application/json" -H "X-Bit-Access-Key: {self.access_key}"  -d '{json.dumps(js)}' """)
+
+            print('')                
+            print('<<<<< Response:')
+            print('--------------')
+            print(res.text)
+            print('')
+
         try:
             return res.json()
         except Exception as ex:
