@@ -15,6 +15,7 @@ import hashlib
 import hmac
 import time
 import json
+import os
 
 class HttpMethod:
     GET = 'GET'
@@ -25,6 +26,8 @@ class HttpMethod:
 
 
 V1_WS_AUTH = '/v1/ws/auth'
+V1_ACCOUNT_CONFIGS_COD = '/v1/account_configs/cod'
+
 
 # SPOT
 V1_SPOT_INSTRUMENTS = '/spot/v1/instruments'
@@ -89,7 +92,7 @@ class BitClient(object):
         for item in item_list:
             obj_val = self.encode_object(item)
             list_val.append(obj_val)
-            print(list_val)
+            # print(list_val)
         # list_val = sorted(list_val)
         output = '&'.join(list_val)
         output = '[' + output + ']'
@@ -172,6 +175,7 @@ class BitClient(object):
             print('')                
             print('<<<<< Response:')
             print('--------------')
+            print(res.status_code)
             print(res.text)
             print('')
 
@@ -186,6 +190,12 @@ class BitClient(object):
     def ws_auth(self):
         return self.call_private_api(V1_WS_AUTH, HttpMethod.GET)
     
+    def enable_cod(self, req):
+        return self.call_private_api(V1_ACCOUNT_CONFIGS_COD, HttpMethod.POST, req)
+
+    def query_cod(self, req={}):
+        return self.call_private_api(V1_ACCOUNT_CONFIGS_COD, HttpMethod.GET, req)
+
     ######################
     # SPOT endpoints
     ######################
@@ -313,6 +323,9 @@ class BitClient(object):
     def linear_query_platform_blocktrades(self, req):
         return self.call_private_api(V1_LINEAR_PLATFORM_BLOCK_TRADES, HttpMethod.GET, req)
 
+    def linear_cond_orders(self, req):
+        self.call_private_api('/linear/v1/conditional_orders', 'GET', req)            
+
     # agg
     def linear_query_agg_positions(self, params):
         self.call_private_api(V1_LINEAR_AGG_POSITIONS, HttpMethod.GET, params)
@@ -321,12 +334,27 @@ class BitClient(object):
         self.call_private_api(V1_LINEAR_AGG_TRADES, HttpMethod.GET, params)
 
 
+    def linear_tpsl_new(self, params):
+        self.call_private_api('/linear/v1/tpsl/new', 'POST', params)
+
+    def linear_tpsl_edit(self, params):
+        self.call_private_api('/linear/v1/tpsl/edit', 'POST', params)
+
+    def linear_tpsl_cancel(self, params):
+        self.call_private_api('/linear/v1/tpsl/cancel', 'POST', params)
+
+    def linear_tpsl_list(self, params):
+        self.call_private_api('/linear/v1/tpsl/list', 'GET', params)
+        
 if __name__ == '__main__':
     # api_host = "https://api.bit.com" # production
 
     api_host = "https://betaapi.bitexch.dev" # testnet
-    ak = "<input_your_access_key>"
-    sk = "<input_your_private_key>"
+
+    # access-key and private-key read from env
+    ak = os.getenv('BITCOM_AK')
+    sk = os.getenv('BITCOM_SK')
+
     client = BitClient(ak, sk, api_host)
 
     mode_resp = client.um_query_account_mode()

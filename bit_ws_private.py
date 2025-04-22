@@ -1,16 +1,15 @@
 # pip3 install websocket_client
 
-import websocket, _thread, time, json
+import websocket, _thread, time, json, os
 from bit_py_umapi import BitClient
 
 # ws_host = "wss://ws.bit.com"
 ws_host = "wss://betaws.bitexch.dev"
-# ws_host = "wss://alphaws.bitexch.dev"
 # ws_host = "wss://spot-ws.bit.com"
 
 api_host = "https://betaapi.bitexch.dev"
-ak = "ak-7656c65e-6643-4668-807f-32d84a60eda5"
-sk = "jvw6vasDsYMEf0v7MtkBZELo6O3E0XRLgEEYZmJjr2X6ePS5HKYLm7Pyk5cSSWrb"
+ak = os.getenv('BITCOM_AK')
+sk = os.getenv('BITCOM_SK')
 
 ###########################################################
 

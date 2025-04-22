@@ -19,6 +19,17 @@ https://www.bit.com/docs/en-us/spot.html#spot-api-hosts-production
 
 ## demo
 
+
+```bash
+
+# use uv to build project
+
+uv venv venv # create venv
+source .venv/bin/activate
+uv pip install -r requirements.txt
+
+```
+
 ```python
 if __name__ == '__main__':
     # api_host = "https://api.bit.com" # production
